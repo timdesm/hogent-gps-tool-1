@@ -27,7 +27,7 @@ namespace Project_GPS
             while (runLoop)
             {
                 Program.printHeader();
-                Console.WriteLine("----- [PROVINCIE STATS] -----");
+                Console.WriteLine("----- [PROVINCIE INFO] -----");
                 Console.WriteLine("[1] Search on Name");
                 Console.WriteLine("[2] Search on ID");
                 Console.WriteLine("[3] Go back");
@@ -38,14 +38,14 @@ namespace Project_GPS
                 {
                     case "1":
                         Program.printHeader();
-                        Console.WriteLine("----- [PROVINCIE STATS] -----");
+                        Console.WriteLine("----- [PROVINCIE INFO] -----");
                         Console.Write("Search on Name: ");
                         String NameSearch = Console.ReadLine();
                         Provincie provincie = Program.Provincies.Single(x => x.Value.Name.ToLower() == NameSearch.ToLower()).Value;
                         if (provincie != null)
                         {
                             Program.printHeader();
-                            Console.WriteLine("----- [PROVINCIE STATS] -----");
+                            Console.WriteLine("----- [PROVINCIE INFO] -----");
                             Console.WriteLine("ID: " + provincie.ID);
                             Console.WriteLine("Name: " + provincie.Name);
                             Console.WriteLine("Cities: " + provincie.gemeentes.Count);
@@ -61,14 +61,14 @@ namespace Project_GPS
                         break;
                     case "2":
                         Program.printHeader();
-                        Console.WriteLine("----- [PROVINCIE STATS] -----");
+                        Console.WriteLine("----- [PROVINCIE INFO] -----");
                         Console.Write("Search on ID: ");
                         String IdSearch = Console.ReadLine();
                         if (Program.Provincies.ContainsKey(int.Parse(IdSearch)))
                         {
                             Provincie provincie2 = Program.Provincies[int.Parse(IdSearch)];
                             Program.printHeader();
-                            Console.WriteLine("----- [PROVINCIE STATS] -----");
+                            Console.WriteLine("----- [PROVINCIE INFO] -----");
                             Console.WriteLine("ID: " + provincie2.ID);
                             Console.WriteLine("Name: " + provincie2.Name);
                             Console.WriteLine("Cities: " + provincie2.gemeentes.Count);
@@ -175,7 +175,7 @@ namespace Project_GPS
             while (runLoop)
             {
                 Program.printHeader();
-                Console.WriteLine("----- [CITY STATS] -----");
+                Console.WriteLine("----- [CITY INFO] -----");
                 Console.WriteLine("[1] Search on Name");
                 Console.WriteLine("[2] Search on ID");
                 Console.WriteLine("[3] Go back");
@@ -186,14 +186,14 @@ namespace Project_GPS
                 {
                     case "1":
                         Program.printHeader();
-                        Console.WriteLine("----- [CITY STATS] -----");
+                        Console.WriteLine("----- [CITY INFO] -----");
                         Console.Write("Search on Name: ");
                         String NameSearch = Console.ReadLine();
                         Gemeente gemeente = Program.Cities.Single(x => x.Value.Name.ToLower() == NameSearch.ToLower()).Value;
                         if (gemeente != null)
                         {
                             Program.printHeader();
-                            Console.WriteLine("----- [CITY STATS] -----");
+                            Console.WriteLine("----- [CITY INFO] -----");
                             Console.WriteLine("ID: " + gemeente.ID);
                             Console.WriteLine("Name: " + gemeente.Name);
                             Console.WriteLine("Streets: " + gemeente.straten.Count);
@@ -209,7 +209,7 @@ namespace Project_GPS
                         break;
                     case "2":
                         Program.printHeader();
-                        Console.WriteLine("----- [CITY STATS] -----");
+                        Console.WriteLine("----- [CITY INFO] -----");
                         Console.Write("Search on ID: ");
                         String IdSearch = Console.ReadLine();
                         if (Program.Cities.ContainsKey(int.Parse(IdSearch)))
@@ -321,7 +321,7 @@ namespace Project_GPS
             while (runLoop)
             {
                 Program.printHeader();
-                Console.WriteLine("----- [STREET STATS] -----");
+                Console.WriteLine("----- [STREET INFO] -----");
                 Console.WriteLine("[1] Search on Name");
                 Console.WriteLine("[2] Search on ID");
                 Console.WriteLine("[3] Go back");
@@ -332,7 +332,7 @@ namespace Project_GPS
                 {
                     case "1":
                         Program.printHeader();
-                        Console.WriteLine("----- [STREET STATS] -----");
+                        Console.WriteLine("----- [STREET INFO] -----");
                         Console.Write("Search on Name: ");
                         String NameSearch = Console.ReadLine();
 
@@ -342,7 +342,7 @@ namespace Project_GPS
                         if (gemeenteList.Count() > 1)
                         {
                             Program.printHeader();
-                            Console.WriteLine("----- [STREET STATS] -----");
+                            Console.WriteLine("----- [STREET INFO] -----");
                             Console.WriteLine("Name: " + NameSearch);
                             Console.WriteLine("Total found: " + gemeenteList.Count());
 
@@ -354,7 +354,7 @@ namespace Project_GPS
                             Gemeente gemeente2 = Program.Cities.Single(x => x.Value.ID == int.Parse(GemeenteSearch)).Value;
                             Straat straat = gemeente2.straten.Single(x => x.Name.ToLower().StartsWith(NameSearch.ToLower()));
                             Program.printHeader();
-                            Console.WriteLine("----- [STREET STATS] -----");
+                            Console.WriteLine("----- [STREET INFO] -----");
                             Console.WriteLine("ID: " + straat.ID);
                             Console.WriteLine("Name: " + straat.Name);
                             Console.WriteLine("Length: " + straat.Graaf.getLength() + "m");
@@ -368,7 +368,7 @@ namespace Project_GPS
                             Straat straat = gemeenteList.First().straten.Single(x => x.Name.ToLower().StartsWith(NameSearch.ToLower()));
 
                             Program.printHeader();
-                            Console.WriteLine("----- [STREET STATS] -----");
+                            Console.WriteLine("----- [STREET INFO] -----");
                             Console.WriteLine("ID: " + straat.ID);
                             Console.WriteLine("Name: " + straat.Name);
                             Console.WriteLine("Length: " + straat.Graaf.getLength() + "m");
@@ -385,7 +385,7 @@ namespace Project_GPS
                         break;
                     case "2":
                         Program.printHeader();
-                        Console.WriteLine("----- [STREET STATS] -----");
+                        Console.WriteLine("----- [STREET INFO] -----");
                         Console.Write("Search on ID: ");
                         String IdSearch = Console.ReadLine();
                         if (Program.Streets.ContainsKey(int.Parse(IdSearch)))
@@ -394,7 +394,7 @@ namespace Project_GPS
                             Gemeente gemeente = Program.Cities.Single(x => x.Value.straten.Where(y => y.ID == straat.ID).Contains(straat)).Value;
 
                             Program.printHeader();
-                            Console.WriteLine("----- [STREET STATS] -----");
+                            Console.WriteLine("----- [STREET INFO] -----");
                             Console.WriteLine("ID: " + straat.ID);
                             Console.WriteLine("Name: " + straat.Name.Replace(Environment.NewLine, ""));
                             Console.WriteLine("Length: " + straat.Graaf.getLength() + "m");
@@ -449,7 +449,7 @@ namespace Project_GPS
                 Program.printHeader();
                 Console.WriteLine("----- [EXPORT RAPPORT] -----");
                 Console.WriteLine("[1] Export as JSON");
-                Console.WriteLine("[2] Export as TXT");
+                Console.WriteLine("[ ] Export as TXT (disabled)");
                 Console.WriteLine("[3] Go back");
                 Console.Write("Selection: ");
                 String selection = Console.ReadLine();
@@ -467,8 +467,9 @@ namespace Project_GPS
                         Console.Write("File name: ");
                         String ExportName = Console.ReadLine();
 
-                        Boolean overviewLoop  = true;
-                        while(overviewLoop) {
+                        Boolean overviewLoop = true;
+                        while (overviewLoop)
+                        {
                             Program.printHeader();
                             Console.WriteLine("----- [EXPORT RAPPORT] -----");
                             Console.WriteLine("Overview: ");
@@ -481,7 +482,79 @@ namespace Project_GPS
                             switch (continueExport.ToUpper())
                             {
                                 case "Y":
+                                    Program.printHeader();
+                                    Console.WriteLine("Generating rapport....");
                                     RapportManager.exportRapport(ExportPath, ExportName, "json");
+                                    overviewLoop = false;
+                                    break;
+                                case "N":
+                                    overviewLoop = false;
+                                    break;
+                                default:
+                                    Console.Write("Wrong selection input, press ENTER to continue...");
+                                    Console.ReadLine();
+                                    break;
+                            }
+                        }
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        runLoop = false;
+                        break;
+                    default:
+                        Console.Write("Wrong selection input, press ENTER to continue...");
+                        Console.ReadLine();
+                        break;
+                }
+            }
+        }
+
+        // Export data
+        public static void case9()
+        {
+            Boolean runLoop = true;
+            while (runLoop)
+            {
+                Program.printHeader();
+                Console.WriteLine("----- [EXPORT DATA] -----");
+                Console.WriteLine("[1] Export as JSON");
+                Console.WriteLine("[ ] Export as TXT (disabled)");
+                Console.WriteLine("[3] Go back");
+                Console.Write("Selection: ");
+                String selection = Console.ReadLine();
+
+                switch (selection)
+                {
+                    case "1":
+                        Program.printHeader();
+                        Console.WriteLine("----- [EXPORT DATA (JSON)] -----");
+                        Console.Write("File path: ");
+                        String ExportPath = Console.ReadLine();
+
+                        Program.printHeader();
+                        Console.WriteLine("----- [EXPORT DATA (JSON)] -----");
+                        Console.Write("File name: ");
+                        String ExportName = Console.ReadLine();
+
+                        Boolean overviewLoop = true;
+                        while (overviewLoop)
+                        {
+                            Program.printHeader();
+                            Console.WriteLine("----- [EXPORT DATA] -----");
+                            Console.WriteLine("Overview: ");
+                            Console.WriteLine("File name: " + ExportName + ".zip");
+                            Console.WriteLine("File path: " + ExportPath);
+                            Console.WriteLine("Export type: JSON");
+                            Console.Write("Are you sure to continue (Y/N)? ");
+                            String continueExport = Console.ReadLine();
+
+                            switch (continueExport.ToUpper())
+                            {
+                                case "Y":
+                                    Program.printHeader();
+                                    Console.WriteLine("Generating data....");
+                                    DataManager.exportData(ExportPath, ExportName, "json");
                                     overviewLoop = false;
                                     break;
                                 case "N":

@@ -12,6 +12,7 @@ namespace Project_GPS
         public class JsonRapport
         {
             public DateTimeOffset Date { get; set; }
+            public String File { get; set; }
             public JsonCount Count { get; set; }
             public IList<JsonProvincie> States { get; set; }
         }
@@ -67,6 +68,7 @@ namespace Project_GPS
         {
             JsonRapport rapport = new JsonRapport();
             rapport.Date = DateTimeOffset.Now;
+            rapport.File = "RAPPORT_FILE";
 
             JsonCount count = new JsonCount();
             count.States = Program.Provincies.Count;
@@ -89,6 +91,8 @@ namespace Project_GPS
                 IList<JsonGemeente> cities = new List<JsonGemeente>();
                 foreach (Gemeente gemeente in provincie.gemeentes)
                 {
+                    stateCount.Streets += gemeente.straten.Count;
+
                     JsonGemeente city = new JsonGemeente();
                     city.ID = gemeente.ID;
                     city.Name = gemeente.Name;
@@ -135,7 +139,7 @@ namespace Project_GPS
 
         public static void exportRapport(String path, String name, String type)
         {
-            if(type.ToLower() == "json")
+            if (type.ToLower() == "json")
             {
                 JsonRapport rapport = JsonBuilder();
                 using (StreamWriter file = File.CreateText(path + @"\" + name + ".json"))
@@ -143,7 +147,9 @@ namespace Project_GPS
                     JsonSerializer serialize = new JsonSerializer();
                     serialize.Serialize(file, rapport);
                 }
-            }    
+            }
+
+            if (type.ToLower() == "txt") { }
         }
     }
 }

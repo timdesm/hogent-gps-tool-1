@@ -11,6 +11,7 @@ namespace Project_GPS
         // Temp data
         public static Dictionary<int, Graaf> grafenTemp = new Dictionary<int, Graaf>();
         public static Dictionary<int, int> streetGemeente = new Dictionary<int, int>();
+        public static List<int> vlaamseProcincies = new List<int>();
 
         public static void WRdataThread(List<String> lines)
         {
@@ -67,6 +68,9 @@ namespace Project_GPS
 
         public static void ProvincieInfoThread(List<String> lines)
         {
+            while (Program.progressStatus["ProvincieIDsVlaanderen"] < Program.progressMax["ProvincieIDsVlaanderen"])
+                Thread.Sleep(50);
+
             while (Program.progressStatus["WRGemeentenaam"] < Program.progressMax["WRGemeentenaam"])
                 Thread.Sleep(50);
 
@@ -85,10 +89,13 @@ namespace Project_GPS
             if (data[2].ToLower() == "nl")
             {
                 int ID = int.Parse(data[1]);
-                if (!Program.Provincies.ContainsKey(ID))
-                    Program.Provincies.Add(ID, new Provincie(ID, data[3]));
-                int GemeenteID = int.Parse(data[0]);
-                Program.Provincies[ID].addGemeente(Program.Cities[GemeenteID]);
+                if(vlaamseProcincies.Contains(ID))
+                {
+                    if (!Program.Provincies.ContainsKey(ID))
+                        Program.Provincies.Add(ID, new Provincie(ID, data[3]));
+                    int GemeenteID = int.Parse(data[0]);
+                    Program.Provincies[ID].addGemeente(Program.Cities[GemeenteID]);
+                }
             }
         }
 
@@ -127,7 +134,29 @@ namespace Project_GPS
             String[] data = line.Split(";");
             int ID = int.Parse(data[0]);
             if (!Program.Streets.ContainsKey(ID))
-                Program.Streets.Add(ID, new Straat(ID, data[1].Replace(" ", "")));
+                Program.Streets.Add(ID, new Straat(ID, data[1].Trim(new char[] {' '})));
+        }
+
+        public static void ProvincieIDsVlaanderenThread(List<String> lines)
+        {
+            Thread.Sleep(300);
+            Program.progressWatch.Add("ProvincieIDsVlaanderen", Stopwatch.StartNew());
+            for (int i = 0; i < lines.Count; i++)
+            {
+                readProvincieIDsVlaanderenLine(lines[i]);
+                
+            }
+            Program.progressWatch["ProvincieIDsVlaanderen"].Stop();
+        }
+
+        public static void readProvincieIDsVlaanderenLine(String line)
+        {
+            String[] data = line.Split(",");
+            foreach (String s in data)
+            {
+                vlaamseProcincies.Add(int.Parse(s));
+                Program.progressStatus["ProvincieIDsVlaanderen"] = vlaamseProcincies.Count;
+            }   
         }
 
         public static void WRGemeneteIDThread(List<String> lines)

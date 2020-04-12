@@ -6,8 +6,8 @@ namespace Project_GPS
 {
     class Knoop
     {
-        private int id { get; }
-        private Punt punt { get; set; }
+        public int id { get; }
+        public Punt punt { get; set; }
 
         public Knoop(int id, Punt punt) 
         {

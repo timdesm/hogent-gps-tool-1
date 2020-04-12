@@ -67,6 +67,13 @@ namespace Project_GPS
             progressMax.Add("WRGemeentenaam", WRGemeentenaam.Count - 1);
             var WRGemeentenaamThread = Task.Run(() => DataLoader.WRGemeentenaamThread(WRGemeentenaam));
 
+            // Load ProvincieIDsVlaanderen.csv
+            String ProvincieIDsVlaanderenFile = folderPath + @"\ProvincieIDsVlaanderen.csv";
+            List<String> ProvincieIDsVlaanderen = FileUtil.readFileLines(ProvincieIDsVlaanderenFile);
+            progressStatus.Add("ProvincieIDsVlaanderen", 0);
+            progressMax.Add("ProvincieIDsVlaanderen", 5);
+            var ProvincieIDsVlaanderenThread = Task.Run(() => DataLoader.ProvincieIDsVlaanderenThread(ProvincieIDsVlaanderen));
+
             // Load WRdata.csv
             String provincieInfoFile = folderPath + @"\ProvincieInfo.csv";
             List<String> ProvincieInfo = FileUtil.readFileLines(provincieInfoFile);
@@ -114,13 +121,14 @@ namespace Project_GPS
 
                 Console.WriteLine("----- [MENU] -----");
                 Console.WriteLine("[1] PROVINCIE LIST");
-                Console.WriteLine("[2] PROVINCIE STATS");
+                Console.WriteLine("[2] PROVINCIE INFO");
                 Console.WriteLine("[3] CITY LIST");
-                Console.WriteLine("[4] CITY STATS");
+                Console.WriteLine("[4] CITY INFO");
                 Console.WriteLine("[5] STREET LIST");
-                Console.WriteLine("[6] STREET STATS");
+                Console.WriteLine("[6] STREET INFO");
                 Console.WriteLine("[7] LOADING STATS");
-                Console.WriteLine("[8] EXPORT STATS");
+                Console.WriteLine("[8] EXPORT RAPPORT");
+                Console.WriteLine("[9] EXPORT DATA");
                 Console.Write("Selection: ");
                 String selection = Console.ReadLine();
 
@@ -150,6 +158,9 @@ namespace Project_GPS
                     case "8":
                         MenuManager.case8();
                         break;
+                    case "9":
+                        MenuManager.case9();
+                        break;
                     default:
                         Console.Write("Wrong selection input, press ENTER to continue...");
                         Console.ReadLine();
@@ -178,12 +189,13 @@ namespace Project_GPS
                 // WRdata
                 drawTextProgressBar("Loading WRdata", progressStatus["WRdata"], progressMax["WRdata"], 8);
                 drawTextProgressBar("Loading WRGemeentenaam", progressStatus["WRGemeentenaam"], progressMax["WRGemeentenaam"], 10);
-                drawTextProgressBar("Loading ProvincieInfo", progressStatus["ProvincieInfo"], progressMax["ProvincieInfo"], 12);
-                drawTextProgressBar("Loading WRGemeneteID", progressStatus["WRGemeneteID"], progressMax["WRGemeneteID"], 14);
-                drawTextProgressBar("Loading WRstraatnamen", progressStatus["WRstraatnamen"], progressMax["WRstraatnamen"], 16);
-                drawTextProgressBar("Building Grafen", DataLoader.grafenTemp.Count, 94215, 18);
+                drawTextProgressBar("Loading ProvincieIDsVlaanderen", progressStatus["ProvincieIDsVlaanderen"], progressMax["ProvincieIDsVlaanderen"], 12);
+                drawTextProgressBar("Loading ProvincieInfo", progressStatus["ProvincieInfo"], progressMax["ProvincieInfo"], 14);
+                drawTextProgressBar("Loading WRGemeneteID", progressStatus["WRGemeneteID"], progressMax["WRGemeneteID"], 16);
+                drawTextProgressBar("Loading WRstraatnamen", progressStatus["WRstraatnamen"], progressMax["WRstraatnamen"], 18);
+                drawTextProgressBar("Building Grafen", DataLoader.grafenTemp.Count, 94215, 20);
                 if (progressStatus.ContainsKey("StreetBuild"))
-                    drawTextProgressBar("Odering Streets", progressStatus["StreetBuild"], progressMax["StreetBuild"], 20);
+                    drawTextProgressBar("Odering Streets", progressStatus["StreetBuild"], progressMax["StreetBuild"], 22);
                 Thread.Sleep(20);
             }
 
@@ -224,16 +236,6 @@ namespace Project_GPS
             Console.WriteLine("HoGent GPS - Tool 1");
             Console.WriteLine("--------------------------");
             Console.WriteLine(" ");
-        }
-
-        public void temp()
-        {
-            String zipPath = @"C:\Users\timde\source\repos\Project GPS\Project GPS\Data\StreetData.zip";
-            FileUtil.unZip(zipPath, "./temp/StreetData");
-            foreach (String file in FileUtil.getCSVFiles("./temp/StreetData"))
-                if (file.Contains("WRstraatnamen.csv"))
-                    foreach (String line in FileUtil.readFileLines(file))
-                        Console.WriteLine(line);
         }
     }
 }
