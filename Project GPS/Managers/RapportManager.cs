@@ -72,10 +72,9 @@ namespace Project_GPS
 
             JsonCount count = new JsonCount();
             count.States = Program.Provincies.Count;
-            count.Cities = Program.Cities.Count;
-            count.Streets = Program.Streets.Count;
-            rapport.Count = count;
-
+            count.Cities = 0;
+            count.Streets = 0;
+            
             IList<JsonProvincie> States = new List<JsonProvincie>();
             foreach(Provincie provincie in Program.Provincies.Values)
             {
@@ -88,6 +87,8 @@ namespace Project_GPS
                 stateCount.Cities = provincie.gemeentes.Count;
                 state.Count = stateCount;
 
+                count.Cities += stateCount.Cities;
+
                 IList<JsonGemeente> cities = new List<JsonGemeente>();
                 foreach (Gemeente gemeente in provincie.gemeentes)
                 {
@@ -97,6 +98,8 @@ namespace Project_GPS
                     city.ID = gemeente.ID;
                     city.Name = gemeente.Name;
                     city.Streets = gemeente.straten.Count;
+
+                    count.Streets += city.Streets;
 
                     List<Straat> tempList = new List<Straat>();
                     tempList = gemeente.straten.Where(x => x.Graaf != null).ToList();
@@ -131,6 +134,8 @@ namespace Project_GPS
 
                 States.Add(state);
             }
+
+            rapport.Count = count;
             rapport.States = States;
 
             return rapport;

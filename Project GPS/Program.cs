@@ -113,15 +113,16 @@ namespace Project_GPS
             }
 
             Thread.Sleep(25);
-            while (true)
+            Boolean runApp = true;
+            while (runApp)
             {
                 printHeader();
                 Console.WriteLine("All data has been loaded");
                 Console.WriteLine(" ");
 
                 Console.WriteLine("----- [MENU] -----");
-                Console.WriteLine("[1] PROVINCIE LIST");
-                Console.WriteLine("[2] PROVINCIE INFO");
+                Console.WriteLine("[1] STATE LIST");
+                Console.WriteLine("[2] STATE INFO");
                 Console.WriteLine("[3] CITY LIST");
                 Console.WriteLine("[4] CITY INFO");
                 Console.WriteLine("[5] STREET LIST");
@@ -129,6 +130,7 @@ namespace Project_GPS
                 Console.WriteLine("[7] LOADING STATS");
                 Console.WriteLine("[8] EXPORT RAPPORT");
                 Console.WriteLine("[9] EXPORT DATA");
+                Console.WriteLine("[10] CLOSE APPLICATION");
                 Console.Write("Selection: ");
                 String selection = Console.ReadLine();
 
@@ -160,6 +162,9 @@ namespace Project_GPS
                         break;
                     case "9":
                         MenuManager.case9();
+                        break;
+                    case "10":
+                        runApp = false;
                         break;
                     default:
                         Console.Write("Wrong selection input, press ENTER to continue...");

@@ -15,13 +15,11 @@ namespace Project_GPS
 
         public static void WRdataThread(List<String> lines)
         {
-            //Program.progressWatch.Add("WRdata",  Stopwatch.StartNew());
             for (int i = 1; i < lines.Count; i++)
             {
                 readWRdataLine(lines[i]);
                 Program.progressStatus["WRdata"] = i;
             }
-           // Program.progressWatch["WRdata"].Stop();
         }
 
         public static void readWRdataLine(String line)
